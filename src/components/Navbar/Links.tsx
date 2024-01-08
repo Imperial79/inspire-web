@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Navlink from "./Navlink";
+import Link from "next/link";
 const links = [
   {
     title: "Home",
@@ -29,7 +30,7 @@ const Links = () => {
 
   return (
     <div>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-5">
         <div className="sm:flex hidden">
           {links.map((link, index) => (
             <Navlink key={index} item={link} />
@@ -37,15 +38,15 @@ const Links = () => {
         </div>
         {session ? (
           <>
-            {isAdmin && (
-              <Navlink key={100} item={{ title: "Admin", path: "/admin" }} />
-            )}
+            {isAdmin && <Navlink item={{ title: "Admin", path: "/admin" }} />}
             <button className="bg-red-200 text-red-800 font-bold px-5 py-1.5 rounded-full">
               Logout
             </button>
           </>
         ) : (
-          <Navlink key={99} item={{ title: "Login", path: "/login" }} />
+          <Link href="/login" className="kTextButton">
+            Login
+          </Link>
         )}
         <button
           onClick={() => {
@@ -71,9 +72,11 @@ const Links = () => {
       </div>
 
       {open && (
-        <div className="flex flex-col gap-2 right-5 absolute w-[200px] bg-gray-800 p-5 rounded-lg sm:hidden">
+        <div className="flex flex-col gap-2 right-5 absolute w-[200px] bg-gray-800 p-5 rounded-lg sm:hidden z-20">
           {links.map((link, index) => (
-            <Navlink key={index} item={link} />
+            <div key={index}>
+              <Navlink item={link} />
+            </div>
           ))}
         </div>
       )}

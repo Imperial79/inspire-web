@@ -18,7 +18,7 @@ const AboutPage = () => {
         </p>
         <br />
         <div className="flex items-center gap-5">
-          <Link href="" className="hover:underline hover:underline-offset-8">
+          <Link href="" className="kTextButton">
             Learn More
           </Link>
           <button className="kButton">Contact</button>

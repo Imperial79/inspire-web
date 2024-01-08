@@ -12,6 +12,10 @@
   .kTextfield {
     @apply bg-gray-700 rounded-lg placeholder:text-gray-400 px-5 py-3 font-bold;
   }
+
+  .kTextButton {
+    @apply hover:underline hover:underline-offset-4;
+  }
 }
 
 

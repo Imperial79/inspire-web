@@ -3,12 +3,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
-const Navlink = ({ key, item }: { key: any; item: any }) => {
+const Navlink = ({ item }: { item: any }) => {
   const pathName = usePathname();
 
   return (
     <Link
-      key={key}
+      key={item.title}
       href={item.path}
       className={`kButton 
       ${
