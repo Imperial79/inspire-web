@@ -2,10 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const Home = () => {
+const AboutPage = () => {
   return (
     <div className="flex gap-[100px]">
       <div className="flex-1">
+        <h3 className="text-2xl mb-6">About Us</h3>
+
         <h1 className="text-5xl font-bold">!nspire a million</h1>
         <br />
         <p>
@@ -30,4 +32,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default AboutPage;
