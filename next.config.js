@@ -6,6 +6,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "web-images.pixpa.com",
       },
+      {
+        protocol: "https",
+        hostname: "api.slingacademy.com",
+      },
     ],
   },
 };

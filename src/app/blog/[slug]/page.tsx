@@ -1,22 +1,46 @@
 import Image from "next/image";
 import React from "react";
 
-const SinglePostPage = () => {
+async function getPostData(id: String) {
+  const res = await fetch(
+    `https://api.slingacademy.com/v1/sample-data/photos/${id}`
+  );
+
+  if (!res.ok) {
+    console.log("Something went wrong");
+  }
+
+  return res.json();
+}
+
+async function getUserData(id: String) {
+  const res = await fetch(
+    `https://api.slingacademy.com/v1/sample-data/users/${id}`
+  );
+
+  if (!res.ok) {
+    console.log("Something went wrong");
+  }
+
+  return res.json();
+}
+
+const SinglePostPage = async ({ params }: { params: any }) => {
+  const postRes = await getPostData(params.slug);
+
+  const userRes = await getUserData(postRes.photo.user);
+  console.log(userRes);
+
   return (
     <div>
-      <div className="flex gap-[100px]">
+      <div className="flex gap-[60px]">
         <div className="relative h-[500px] flex-1">
-          <Image src="/post.png" alt="" objectFit="contain" fill />
+          <Image src={postRes.photo.url} alt="" objectFit="contain" fill />
         </div>
         <div className="flex-1 flex-col">
-          <MetaData />
-          <h1 className="text-3xl font-bold">Title</h1>
-          <p className="text-lg text-gray-300">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque
-            provident asperiores repellat reiciendis molestias earum? Eveniet
-            commodi nisi culpa odio corrupti esse, sint ad blanditiis eaque quos
-            dolores non voluptatibus.
-          </p>
+          <MetaData userData={userRes.user} />
+          <h1 className="text-3xl font-bold">{postRes.photo.title}</h1>
+          <p className="text-lg text-gray-300">{postRes.photo.description}</p>
         </div>
       </div>
     </div>
@@ -25,22 +49,19 @@ const SinglePostPage = () => {
 
 export default SinglePostPage;
 
-function MetaData() {
+function MetaData({ userData }: { userData: any }) {
   return (
     <div className="mb-5">
       <div className="inline-flex mb-5 items-center gap-5">
         <div className="bg-gray-500 h-12 w-12 rounded-full relative overflow-hidden flex-shrink-0">
-          <Image
-            src="https://web-images.pixpa.com/PValGD85Fs1RI62OKGM-X74BJ1yBRfAsVBO_fKgLcgQ/rs:fit:1200:0/q:80/czM6Ly9waXhwYS5jb20vL2NvbS9hcnRpY2xlcy8xNTI1ODkxODc5LTg4NjM4Ni1zYW0tYnVycmlzcy00NTc3NDYtdW5zcGxhc2hqcGcuanBn"
-            alt=""
-            fill
-            objectFit="cover"
-          />
+          <Image src={userData.profile_picture} alt="" fill objectFit="cover" />
         </div>
 
         <div className="flex flex-col">
-          <h2 className="text-lg">Avishek Verma</h2>
-          <h3 className="text-gray-300">@avishekverma79</h3>
+          <h2 className="text-lg">
+            {userData.first_name} {userData.last_name}
+          </h2>
+          <h3 className="text-gray-300">@{userData.email.split("@")[0]}</h3>
         </div>
       </div>
       <h2 className="font-bold">

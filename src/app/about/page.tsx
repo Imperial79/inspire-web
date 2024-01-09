@@ -27,7 +27,7 @@ const AboutPage = () => {
         </div>
       </div>
 
-      <div className="flex-1 relative hidden md:block">
+      <div className="flex-1 relative invisibleOnPhone">
         <Image src="/hero.svg" alt="" fill />
       </div>
     </div>

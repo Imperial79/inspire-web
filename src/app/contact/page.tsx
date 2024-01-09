@@ -3,7 +3,7 @@ import React from "react";
 
 const ContactPage = () => {
   return (
-    <div className="flex gap-[100px]">
+    <div className="md:flex gap-[100px]">
       <div className="flex-1 relative">
         <Image
           src="/contact.svg"

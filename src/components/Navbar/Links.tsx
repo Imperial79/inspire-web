@@ -23,7 +23,7 @@ const links = [
 ];
 
 const Links = () => {
-  const [open, setopen] = useState(false);
+  const [isOpen, setisOpen] = useState(false);
   // Temp
   const isAdmin = false;
   const session = false;
@@ -50,7 +50,7 @@ const Links = () => {
         )}
         <button
           onClick={() => {
-            setopen(!open);
+            setisOpen(!isOpen);
           }}
           className="sm:hidden"
         >
@@ -71,17 +71,23 @@ const Links = () => {
         </button>
       </div>
 
-      {open && (
-        <div className="flex flex-col gap-2 right-5 absolute w-[200px] bg-gray-800 p-5 rounded-lg sm:hidden z-20">
-          {links.map((link, index) => (
-            <div key={index}>
-              <Navlink item={link} />
-            </div>
-          ))}
-        </div>
-      )}
+      {isOpen && <Navmenu />}
     </div>
   );
 };
 
 export default Links;
+
+function Navmenu() {
+  return (
+    <div className="flex flex-col gap-2 right-5 absolute bg-gray-800 py-3 rounded-lg sm:hidden z-20 items-center w-[120px]">
+      {links.map((link, index) => (
+        <div key={index}>
+          <Link key={link.title} href={link.path}>
+            <div className="kNavmenuBtn">{link.title}</div>
+          </Link>
+        </div>
+      ))}
+    </div>
+  );
+}
