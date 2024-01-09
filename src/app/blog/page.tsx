@@ -5,10 +5,10 @@ async function getData() {
   // to cache data {cache: "force-cache"} (default)
   // to not cache data {cache: "no-store"}
   const res = await fetch(
-    "https://api.slingacademy.com/v1/sample-data/photos?offset=5&limit=20",
-    {
-      cache: "no-store",
-    }
+    "https://api.slingacademy.com/v1/sample-data/photos?offset=5&limit=20"
+    // {
+    //   cache: "no-store",
+    // }
   );
 
   if (!res.ok) {

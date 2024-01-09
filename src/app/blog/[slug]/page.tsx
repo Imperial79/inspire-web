@@ -33,9 +33,16 @@ const SinglePostPage = async ({ params }: { params: any }) => {
 
   return (
     <div>
-      <div className="flex gap-[60px]">
-        <div className="relative h-[500px] flex-1">
-          <Image src={postRes.photo.url} alt="" objectFit="contain" fill />
+      <div className="flex items-start gap-[60px]">
+        <div className="relative flex-1">
+          <Image
+            src={postRes.photo.url}
+            alt=""
+            objectFit="contain"
+            height={1000}
+            width={1000}
+            className="rounded-lg"
+          />
         </div>
         <div className="flex-1 flex-col">
           <MetaData userData={userRes.user} />

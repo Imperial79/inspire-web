@@ -6,12 +6,13 @@ const PostCard = ({ data }: { data: any }) => {
   return (
     <div className="flex flex-col gap-5 mb-5 group">
       <div className="flex rounded-xl">
-        <div className="relative h-96 w-96 overflow-hidden object-center bg-blue-950/50 rounded-lg">
+        <div className="relative">
           <Image
-            src={data.url}
+            src={data?.url}
             alt=""
-            fill
-            objectFit="cover"
+            height={400}
+            width={400}
+            objectFit="contain"
             className="rounded-lg"
           />
         </div>

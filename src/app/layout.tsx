@@ -19,11 +19,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inconsolata.className}>
-        <div className="max-w-6xl mx-auto px-[20px] py-[20px] min-h-screen flex flex-col justify-between">
-          <Navbar />
-          {children}
-          <Footer />
+        <Navbar />
+        <div className="max-w-6xl mx-auto px-[20px] py-[20px] min-h-screen flex flex-col justify-around">
+          <div className="pt-20 content-center">{children}</div>
         </div>
+        <Footer />
       </body>
     </html>
   );
