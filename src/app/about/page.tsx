@@ -21,11 +21,13 @@ const AboutPage = () => {
           <Link href="" className="kTextButton">
             Learn More
           </Link>
-          <button className="kButton">Contact</button>
+          <Link href="/contact" className="kButton">
+            Contact
+          </Link>
         </div>
       </div>
 
-      <div className="flex-1 relative">
+      <div className="flex-1 relative hidden md:block">
         <Image src="/hero.svg" alt="" fill />
       </div>
     </div>
