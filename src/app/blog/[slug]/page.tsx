@@ -13,7 +13,6 @@ export const generateMetadata = async ({ params }: { params: any }) => {
 
 const SinglePostPage = async ({ params }: { params: any }) => {
   const postRes = await getPost(params.slug);
-  console.log(postRes);
 
   return (
     <div>
@@ -22,10 +21,6 @@ const SinglePostPage = async ({ params }: { params: any }) => {
           <Image
             src={postRes.img}
             alt=""
-            // objectFit="contain"
-
-            // height={1000}
-            // width={1000}
             fill
             className="rounded-lg object-cover"
           />

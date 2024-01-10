@@ -1,11 +1,14 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { connectToDB } from "./connectToDB";
 import { Post } from "./models";
+import { useRouter } from "next/navigation";
+
+const router = useRouter();
 
 export const addPost = async (formdata: FormData) => {
   const { title, img, description } = Object.fromEntries(formdata);
-  console.log(title, img, description);
   try {
     connectToDB();
     const newPost = new Post({
@@ -17,7 +20,8 @@ export const addPost = async (formdata: FormData) => {
     });
 
     await newPost.save();
-    console.log("Post saved");
+    revalidatePath("/blog")
+    router.back();
   } catch (error) {
     console.log(error);
   }

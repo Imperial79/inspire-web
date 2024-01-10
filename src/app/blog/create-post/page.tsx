@@ -1,10 +1,12 @@
 "use client";
 import { addPost } from "@/utils/actions";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 const CreatePost = () => {
   const [imageUrl, setimageUrl] = useState("");
+
   return (
     <div className="grid grid-cols-2">
       <div className="h-[500px] w-[400px] bg-gray-800 rounded-lg items-center text-center flex justify-center text-gray-300 relative overflow-hidden">
@@ -33,12 +35,15 @@ const CreatePost = () => {
         />
 
         <input
-          type="text"
+          type="url"
           name="img"
           className="kTextfield font-semibold mb-10"
           placeholder="Add image url (Optional)"
           onChange={(e) => {
-            setimageUrl(e.target.value);
+            var pat = /^https?:\/\//i;
+            if (pat.test(e.target.value) || e.target.value === "") {
+              setimageUrl(e.target.value);
+            }
           }}
         />
 
