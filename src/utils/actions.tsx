@@ -3,9 +3,6 @@
 import { revalidatePath } from "next/cache";
 import { connectToDB } from "./connectToDB";
 import { Post } from "./models";
-import { useRouter } from "next/navigation";
-
-const router = useRouter();
 
 export const addPost = async (formdata: FormData) => {
   const { title, img, description } = Object.fromEntries(formdata);
@@ -15,13 +12,12 @@ export const addPost = async (formdata: FormData) => {
       title,
       img,
       description,
-      slug: Date.toString,
-      userId: "123",
+      slug: new Date().getMilliseconds().toString(),
+      userId: "659e139a84cee1e443fb25c2",
     });
 
     await newPost.save();
-    revalidatePath("/blog")
-    router.back();
+    revalidatePath("/blog");
   } catch (error) {
     console.log(error);
   }

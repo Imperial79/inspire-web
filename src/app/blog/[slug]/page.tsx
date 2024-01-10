@@ -13,16 +13,17 @@ export const generateMetadata = async ({ params }: { params: any }) => {
 
 const SinglePostPage = async ({ params }: { params: any }) => {
   const postRes = await getPost(params.slug);
+  console.log(postRes);
 
   return (
     <div>
       <div className="flex items-start gap-[60px]">
-        <div className="relative flex-1 h-[600px] w-[90%]">
+        <div className="relative flex-1 min-h-[600px] w-full">
           <Image
             src={postRes.img}
-            alt=""
+            alt="post-image"
             fill
-            className="rounded-lg object-cover"
+            className="object-contain"
           />
         </div>
         <div className="flex-1 flex-col">
@@ -38,7 +39,9 @@ const SinglePostPage = async ({ params }: { params: any }) => {
 export default SinglePostPage;
 
 async function UserData({ userId }: { userId: String }) {
+  console.log(userId);
   const userRes = await getUser(userId);
+
   return (
     <div className="mb-5">
       <div className="inline-flex mb-5 items-center gap-5">

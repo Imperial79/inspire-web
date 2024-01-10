@@ -8,14 +8,14 @@ const CreatePost = () => {
   const [imageUrl, setimageUrl] = useState("");
 
   return (
-    <div className="grid grid-cols-2">
-      <div className="h-[500px] w-[400px] bg-gray-800 rounded-lg items-center text-center flex justify-center text-gray-300 relative overflow-hidden">
+    <div className="grid grid-cols-2 gap-20">
+      <div className="bg-gray-800/30 rounded-lg items-center text-center flex justify-center text-gray-300 relative overflow-hidden">
         {imageUrl !== "" ? (
           <Image
             src={imageUrl}
             alt="post-image"
             fill
-            className="object-cover"
+            className="object-contain rounded-lg"
           />
         ) : (
           <button className="kTextButton">

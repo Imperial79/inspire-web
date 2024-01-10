@@ -6,14 +6,12 @@ const PostCard = ({ data }: { data: any }) => {
   return (
     <div className="flex flex-col gap-5 mb-5 group">
       <div className="flex rounded-xl">
-        <div className="relative">
+        <div className="relative md:min-h-[400px] min-h-[200px] w-full flex overflow-hidden rounded-lg bg-white/10">
           <Image
             src={data?.img}
             alt=""
-            height={400}
-            width={400}
-            objectFit="contain"
-            className="rounded-lg"
+            fill
+            className="rounded-lg object-contain"
           />
         </div>
         <div className="w-10 justify-center inline-flex whitespace-nowrap py-10 items-center">
