@@ -1,33 +1,34 @@
 import PostCard from "@/components/Post Card/PostCard";
+import { getPosts } from "@/utils/data";
+import Link from "next/link";
 import React from "react";
 
-async function getData() {
-  // to cache data {cache: "force-cache"} (default)
-  // to not cache data {cache: "no-store"}
-  const res = await fetch(
-    "https://api.slingacademy.com/v1/sample-data/photos?offset=5&limit=20"
-    // {
-    //   cache: "no-store",
-    // }
-  );
-
-  if (!res.ok) {
-    console.log("Something went wrong");
-  }
-
-  return res.json();
-}
+export const metadata = {
+  title: "Blogs",
+  description: "Find all the blogs at one place from top influencers",
+};
 
 const BlogPage = async () => {
-  const posts = await getData();
+  const posts = await getPosts();
 
   return (
-    <div className="grid md:grid-cols-3 grid-cols-2 gap-10">
-      {posts.photos.map((post: any) => (
-        <div key={post.id}>
-          <PostCard data={post} />
-        </div>
-      ))}
+    <div>
+      <div className="flex flex-col justify-end mb-10">
+        <Link href="/blog/create-post" className="kTextButton self-end">
+          Create a post
+        </Link>
+        <div className="h-[1px] mt-1 bg-white w-full"></div>
+      </div>
+
+      <div className="grid md:grid-cols-3 grid-cols-2 gap-10">
+        {posts.map((post: any) => (
+          <div key={post.id}>
+            <PostCard data={post} />
+          </div>
+        ))}
+
+        {posts.length === 0 && <p>No Posts yet! come back later</p>}
+      </div>
     </div>
   );
 };

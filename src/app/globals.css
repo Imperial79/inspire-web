@@ -10,7 +10,7 @@
   }
 
   .kTextfield {
-    @apply bg-gray-700 rounded-lg placeholder:text-gray-400 px-5 py-3 font-bold;
+    @apply text-lg font-normal border-b-2 border-gray-500 appearance-none bg-transparent px-5 py-3 focus:border-b-2 focus:border-gray-200 w-full enabled:hover:border-blue-400 focus:outline-none;
   }
 
   .kTextButton {

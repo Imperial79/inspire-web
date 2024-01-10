@@ -2,6 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+export const metadata = {
+  title: "About us",
+  description: "Find all the blogs at one place from top influencers",
+};
+
 const AboutPage = () => {
   return (
     <div className="flex gap-[100px]">

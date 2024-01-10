@@ -1,6 +1,11 @@
 import Image from "next/image";
 import React from "react";
 
+export const metadata = {
+  title: "Contact",
+  description: "Contact us and write your query or suggestions directly to us",
+};
+
 const ContactPage = () => {
   return (
     <div className="md:flex gap-[100px]">

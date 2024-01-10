@@ -7,7 +7,7 @@ import Footer from "@/components/Footer/Footer";
 const inconsolata = Inconsolata({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Blog App",
+  title: { default: "!nspire", template: "%s | !nspire" },
   description: "A blog app created using Next JS 14",
 };
 

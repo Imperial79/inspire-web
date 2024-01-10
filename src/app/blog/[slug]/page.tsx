@@ -1,53 +1,39 @@
+import { getPost, getUser } from "@/utils/data";
 import Image from "next/image";
 import React from "react";
 
-async function getPostData(id: String) {
-  const res = await fetch(
-    `https://api.slingacademy.com/v1/sample-data/photos/${id}`
-  );
-
-  if (!res.ok) {
-    console.log("Something went wrong");
-  }
-
-  return res.json();
-}
-
-async function getUserData(id: String) {
-  const res = await fetch(
-    `https://api.slingacademy.com/v1/sample-data/users/${id}`
-  );
-
-  if (!res.ok) {
-    console.log("Something went wrong");
-  }
-
-  return res.json();
-}
+export const generateMetadata = async ({ params }: { params: any }) => {
+  const { slug } = params;
+  const post = await getPost(slug);
+  return {
+    title: post.title,
+    description: post.description,
+  };
+};
 
 const SinglePostPage = async ({ params }: { params: any }) => {
-  const postRes = await getPostData(params.slug);
-
-  const userRes = await getUserData(postRes.photo.user);
-  console.log(userRes);
+  const postRes = await getPost(params.slug);
+  console.log(postRes);
 
   return (
     <div>
       <div className="flex items-start gap-[60px]">
-        <div className="relative flex-1">
+        <div className="relative flex-1 h-[600px] w-[90%]">
           <Image
-            src={postRes.photo.url}
+            src={postRes.img}
             alt=""
-            objectFit="contain"
-            height={1000}
-            width={1000}
-            className="rounded-lg"
+            // objectFit="contain"
+
+            // height={1000}
+            // width={1000}
+            fill
+            className="rounded-lg object-cover"
           />
         </div>
         <div className="flex-1 flex-col">
-          <MetaData userData={userRes.user} />
-          <h1 className="text-3xl font-bold">{postRes.photo.title}</h1>
-          <p className="text-lg text-gray-300">{postRes.photo.description}</p>
+          <UserData userId={postRes.userId} />
+          <h1 className="text-3xl font-bold">{postRes.title}</h1>
+          <p className="text-lg text-gray-300">{postRes.description}</p>
         </div>
       </div>
     </div>
@@ -56,19 +42,23 @@ const SinglePostPage = async ({ params }: { params: any }) => {
 
 export default SinglePostPage;
 
-function MetaData({ userData }: { userData: any }) {
+async function UserData({ userId }: { userId: String }) {
+  const userRes = await getUser(userId);
   return (
     <div className="mb-5">
       <div className="inline-flex mb-5 items-center gap-5">
         <div className="bg-gray-500 h-12 w-12 rounded-full relative overflow-hidden flex-shrink-0">
-          <Image src={userData.profile_picture} alt="" fill objectFit="cover" />
+          <Image
+            src={userRes.img || "/avatar.png"}
+            alt=""
+            fill
+            objectFit="cover"
+          />
         </div>
 
         <div className="flex flex-col">
-          <h2 className="text-lg">
-            {userData.first_name} {userData.last_name}
-          </h2>
-          <h3 className="text-gray-300">@{userData.email.split("@")[0]}</h3>
+          <h2 className="text-lg">{userRes.username}</h2>
+          <h3 className="text-gray-300">@{userRes.username}</h3>
         </div>
       </div>
       <h2 className="font-bold">

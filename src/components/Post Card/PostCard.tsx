@@ -8,7 +8,7 @@ const PostCard = ({ data }: { data: any }) => {
       <div className="flex rounded-xl">
         <div className="relative">
           <Image
-            src={data?.url}
+            src={data?.img}
             alt=""
             height={400}
             width={400}
@@ -30,7 +30,7 @@ const PostCard = ({ data }: { data: any }) => {
             {data?.description}
           </p>
           <Link
-            href={`/blog/${data?.id}`}
+            href={`/blog/${data?.slug}`}
             className="kTextButton lg:invisible lg:group-hover:visible sm:visible"
           >
             Read More
