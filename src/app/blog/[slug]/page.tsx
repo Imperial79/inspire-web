@@ -11,9 +11,19 @@ export const generateMetadata = async ({ params }: { params: any }) => {
   };
 };
 
+async function getData(id: String) {
+  const res = await fetch(`http://localhost:3000/api/blog/${id}`, {
+    method: "GET",
+  });
+  return res.json();
+}
+
 const SinglePostPage = async ({ params }: { params: any }) => {
-  const postRes = await getPost(params.slug);
-  console.log(postRes);
+  const { slug } = params;
+  // console.log("slug: " + slug);
+  const postRes = await getPost(slug);
+  const res = await getData(slug);
+  console.log(res);
 
   return (
     <div>
@@ -39,7 +49,6 @@ const SinglePostPage = async ({ params }: { params: any }) => {
 export default SinglePostPage;
 
 async function UserData({ userId }: { userId: String }) {
-  console.log(userId);
   const userRes = await getUser(userId);
 
   return (

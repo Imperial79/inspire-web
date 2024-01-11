@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { connectToDB } from "./connectToDB";
 import { Post } from "./models";
+import { signIn, signOut } from "./auth";
 
 export const addPost = async (formdata: FormData) => {
   const { title, img, description } = Object.fromEntries(formdata);
@@ -19,6 +20,14 @@ export const addPost = async (formdata: FormData) => {
     await newPost.save();
     revalidatePath("/blog");
   } catch (error) {
-    console.log(error);
+    throw new Error("Cannot create new post");
   }
+};
+
+export const handleGithubLogin = async () => {
+  await signIn("github", { redirectTo: "/" });
+};
+
+export const handleSignout = async () => {
+  await signOut({ redirectTo: "/login" });
 };

@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import Navlink from "./Navlink";
 import Link from "next/link";
+import { auth } from "@/utils/auth";
+import { handleSignout } from "@/utils/actions";
 const links = [
   {
     title: "Home",
@@ -22,11 +24,10 @@ const links = [
   },
 ];
 
-const Links = () => {
+const Links = async ({ session }: { session: any }) => {
   const [isOpen, setisOpen] = useState(false);
   // Temp
   const isAdmin = false;
-  const session = false;
 
   return (
     <div>
@@ -36,12 +37,16 @@ const Links = () => {
             <Navlink key={index} item={link} />
           ))}
         </div>
-        {session ? (
+        {session !== null ? (
           <>
-            {isAdmin && <Navlink item={{ title: "Admin", path: "/admin" }} />}
-            <button className="bg-red-200 text-red-800 font-bold px-5 py-1.5 rounded-full">
-              Logout
-            </button>
+            {session.user?.isAdmin && (
+              <Navlink item={{ title: "Admin", path: "/admin" }} />
+            )}
+            <form action={handleSignout}>
+              <button className="bg-red-200 text-red-800 font-bold px-5 py-1.5 rounded-full">
+                Logout
+              </button>
+            </form>
           </>
         ) : (
           <Link href="/login" className="kTextButton">

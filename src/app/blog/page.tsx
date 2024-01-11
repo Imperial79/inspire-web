@@ -8,8 +8,16 @@ export const metadata = {
   description: "Find all the blogs at one place from top influencers",
 };
 
+// Fetch data with an API
+async function getData() {
+  const res = await fetch("http://localhost:3000/api/blog");
+  return res.json();
+}
+
 const BlogPage = async () => {
   const posts = await getPosts();
+  const res = await getData();
+  // // console.log(res);
 
   return (
     <div>
