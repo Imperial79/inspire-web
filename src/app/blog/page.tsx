@@ -21,8 +21,8 @@ const BlogPage = async () => {
 
   return (
     <div>
-      <div className="flex flex-col justify-end mb-10">
-        <Link href="/blog/create-post" className="kTextButton self-end">
+      <div className="flex flex-col justify-end mb-10 sticky top-20 z-10 bg-black w-full">
+        <Link href="/blog/create-post" className="kTextButton self-end ">
           Create a post
         </Link>
         <div className="h-[1px] mt-1 bg-white w-full"></div>

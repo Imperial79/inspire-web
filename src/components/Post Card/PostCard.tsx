@@ -3,6 +3,14 @@ import Link from "next/link";
 import React from "react";
 
 const PostCard = ({ data }: { data: any }) => {
+  const dateObj = new Date(data.createdAt.toString());
+  const day = dateObj.getDate();
+  const month = dateObj.getMonth() + 1;
+  const year = dateObj.getFullYear();
+
+  const createdAt = `${day.toString().padStart(2, "0")}.${month
+    .toString()
+    .padStart(2, "0")}.${year}`;
   return (
     <div className="flex flex-col gap-5 mb-5 group">
       <div className="flex rounded-xl">
@@ -15,7 +23,7 @@ const PostCard = ({ data }: { data: any }) => {
           />
         </div>
         <div className="w-10 justify-center inline-flex whitespace-nowrap py-10 items-center">
-          <p className="rotate-90 text-center">01.01.2024</p>
+          <p className="rotate-90 text-center">{createdAt.toString()}</p>
         </div>
       </div>
 

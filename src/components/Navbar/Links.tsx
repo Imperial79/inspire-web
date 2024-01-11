@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import Navlink from "./Navlink";
 import Link from "next/link";
-import { auth } from "@/utils/auth";
 import { handleSignout } from "@/utils/actions";
 const links = [
   {
@@ -24,10 +23,8 @@ const links = [
   },
 ];
 
-const Links = async ({ session }: { session: any }) => {
+const Links = ({ session }: { session: any }) => {
   const [isOpen, setisOpen] = useState(false);
-  // Temp
-  const isAdmin = false;
 
   return (
     <div>
