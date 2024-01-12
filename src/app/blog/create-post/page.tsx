@@ -36,7 +36,7 @@ const CreatePost = () => {
 
         <input
           type="url"
-          name="img"
+          name="image"
           className="kTextfield font-semibold mb-10"
           placeholder="Add image url (Optional)"
           onChange={(e) => {

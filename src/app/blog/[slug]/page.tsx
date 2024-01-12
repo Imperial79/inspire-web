@@ -30,7 +30,7 @@ const SinglePostPage = async ({ params }: { params: any }) => {
       <div className="flex items-start gap-[60px]">
         <div className="relative flex-1 min-h-[600px] w-full">
           <Image
-            src={postRes.img}
+            src={postRes.image}
             alt="post-image"
             fill
             className="object-contain"
@@ -56,7 +56,7 @@ async function UserData({ userId }: { userId: String }) {
       <div className="inline-flex mb-5 items-center gap-5">
         <div className="bg-gray-500 h-12 w-12 rounded-full relative overflow-hidden flex-shrink-0">
           <Image
-            src={userRes.img || "/avatar.png"}
+            src={userRes.image || "/avatar.png"}
             alt=""
             fill
             objectFit="cover"

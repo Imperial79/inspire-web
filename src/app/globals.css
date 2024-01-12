@@ -10,7 +10,7 @@
   }
 
   .kTextfield {
-    @apply text-lg font-normal border-b-2 border-gray-500 appearance-none bg-transparent px-5 py-3 focus:border-b-2 focus:border-gray-200 w-full enabled:hover:border-blue-400 focus:outline-none;
+    @apply text-[15px] font-normal border-b-2 border-gray-500 appearance-none bg-transparent px-2 py-3 focus:border-b-2 focus:border-gray-200 w-full focus:outline-none last:mb-0 mb-5 placeholder:text-sm;
   }
 
   .kTextButton {
@@ -24,6 +24,25 @@
   .invisibleOnPhone {
     @apply hidden md:block;
   }
+}
+
+
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid #253341;
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px #253341 inset;
+  box-shadow: 0 0 0px 1000px #253341 inset;
+  transition: background-color 5000s ease-in-out 0s;
+  color: white;
 }
 
 

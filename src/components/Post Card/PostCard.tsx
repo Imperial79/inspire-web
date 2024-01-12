@@ -16,8 +16,8 @@ const PostCard = ({ data }: { data: any }) => {
       <div className="flex rounded-xl">
         <div className="relative md:min-h-[400px] min-h-[200px] w-full flex overflow-hidden rounded-lg bg-white/10">
           <Image
-            src={data?.img}
-            alt=""
+            src={data?.image}
+            alt="post-image"
             fill
             className="rounded-lg object-contain"
           />

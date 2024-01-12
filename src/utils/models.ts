@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
+    name: {
+      type: String,
+      required: true,
+      min: 3,
+    },
     username: {
       type: String,
       required: true,
@@ -16,12 +21,11 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
       unique: true,
       min: 6,
       max: 20,
     },
-    img: {
+    image: {
       type: String,
     },
     isAdmin: {
@@ -44,7 +48,7 @@ const postSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    img: {
+    image: {
       type: String,
     },
     userId: {
