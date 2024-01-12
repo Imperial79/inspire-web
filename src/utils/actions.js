@@ -52,7 +52,6 @@ export const registerUser = async (formdata) => {
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-    console.log(hashedPassword);
 
     const newUser = new User({
       name,
@@ -70,14 +69,15 @@ export const registerUser = async (formdata) => {
 
 export const loginUser = async (formdata) => {
   const { username, password } = Object.fromEntries(formdata);
+  console.log(username, password);
 
   try {
-    signIn("credentials", {
+    await signIn("credentials", {
       username,
       password,
+      redirectTo: "/",
     });
-  } catch (err) {
-    console.log(err);
-    throw new Error("Cannot create new user");
+  } catch (error) {
+    console.log(error);
   }
 };

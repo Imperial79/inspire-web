@@ -29,7 +29,8 @@
     ".next/types/**/*.ts",
     "src/app/api/auth/[...nextauth]",
     "src/utils/actions.js",
-    "src/utils/auth.js"
+    "src/utils/auth.js",
+    "src/components/Context/ContextProvider.js"
   ],
   "exclude": ["node_modules"]
 }

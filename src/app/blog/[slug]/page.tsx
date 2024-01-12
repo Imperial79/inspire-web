@@ -22,8 +22,8 @@ const SinglePostPage = async ({ params }: { params: any }) => {
   const { slug } = params;
   // console.log("slug: " + slug);
   const postRes = await getPost(slug);
-  const res = await getData(slug);
-  console.log(res);
+  const res = await getData(slug); // using API
+  // console.log(res);
 
   return (
     <div>

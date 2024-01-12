@@ -6,6 +6,27 @@ import { User } from "./models";
 import credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 
+async function login(credentials) {
+  try {
+    connectToDB();
+    const user = await User.findOne({ username: credentials.username });
+
+    if (!user) throw new Error("Invalid credentials");
+
+    const isPasswordCorrect = await bcrypt.compare(
+      credentials.password,
+      user.password
+    );
+
+    if (!isPasswordCorrect) throw new Error("Password Incorrect");
+
+    return user;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Cannot Login: " + error.message);
+  }
+}
+
 export const {
   handlers: { POST, GET },
   auth,
@@ -16,25 +37,12 @@ export const {
     credentials({
       name: "credentials",
       async authorize(credentials) {
-        connectToDB();
-        const user = await User.findOne({ email: credentials.email });
-        console.log(credentials.username, credentials.password);
-        if (!user) {
-          throw new Error("Invalid credentials");
+        try {
+          const user = await login(credentials);
+          return user;
+        } catch (error) {
+          return null;
         }
-        // const isPasswordCorrect = bcrypt.compare(
-        //   credentials.password,
-        //   user.password
-        // );
-        console.log(isPasswordCorrect);
-        if (!isPasswordCorrect) {
-          throw new Error("Invalid credentials");
-        }
-
-        // if (user && isPasswordCorrect) {
-        //   return user;
-        // }
-        return null;
       },
     }),
     GitHub({
@@ -57,7 +65,6 @@ export const {
     async signIn(params) {
       // params contains user, account, and profile information
       const { user, account, profile } = params;
-      console.log(params);
       if (account?.provider === "github") {
         connectToDB();
         try {
