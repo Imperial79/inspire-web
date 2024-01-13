@@ -3,7 +3,6 @@ import {
   handleGoogleLogin,
   loginUser,
 } from "@/utils/actions";
-import { signIn } from "@/utils/auth";
 import Link from "next/link";
 import React from "react";
 
