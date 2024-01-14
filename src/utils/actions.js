@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { connectToDB } from "./connectToDB";
 import { Post, User } from "./models";
-import { signIn, signOut } from "./auth";
+import { auth, signIn, signOut } from "./auth";
 import bcrypt from "bcryptjs";
 
 export const addPost = async (formdata) => {
@@ -21,33 +21,33 @@ export const addPost = async (formdata) => {
     await newPost.save();
     revalidatePath("/blog");
   } catch (error) {
-    throw new Error("Cannot create new post");
+    return { error: "Error saving post" };
   }
 };
 
 export const handleGithubLogin = async () => {
-  await signIn("github", { redirectTo: "/" });
+  await signIn("github");
 };
 export const handleGoogleLogin = async () => {
-  await signIn("google", { redirectTo: "/" });
+  await signIn("google");
 };
 
 export const handleSignout = async () => {
-  await signOut({ redirectTo: "/login" });
+  await signOut();
 };
 
-export const registerUser = async (formdata) => {
+export const registerUser = async (previousState, formdata) => {
   const { name, username, email, password, confirmPassword, image } =
     Object.fromEntries(formdata);
 
   if (password !== confirmPassword) {
-    return "Passwords do not match";
+    return { error: "Passwords do not match" };
   }
   try {
     connectToDB();
     const userData = await User.findOne({ username });
     if (userData) {
-      return "User already exists";
+      return { error: "User with same username already exists" };
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -61,23 +61,29 @@ export const registerUser = async (formdata) => {
       image,
     });
     await newUser.save();
+
+    return { success: true };
   } catch (err) {
     console.log(err);
-    throw new Error("Cannot create new user");
+    return { error: "Cannot create new user" };
   }
 };
 
-export const loginUser = async (formdata) => {
-  const { username, password } = Object.fromEntries(formdata);
-  console.log(username, password);
+export const loginUser = async (previousState, formData) => {
+  const { username, password } = Object.fromEntries(formData);
 
   try {
-    await signIn("credentials", {
-      username,
-      password,
-      redirectTo: "/",
-    });
-  } catch (error) {
-    console.log(error);
+    await signIn("credentials", { username, password });
+    return { success: true };
+  } catch (err) {
+    if (err.type === "CredentialsSignin") {
+      return { error: "Wrong credentials!" };
+    }
+    throw err;
   }
+};
+
+export const checkLoggedIn = async () => {
+  const session = await auth();
+  return session;
 };

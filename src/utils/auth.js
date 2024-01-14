@@ -3,29 +3,29 @@ import GitHub from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { connectToDB } from "./connectToDB";
 import { User } from "./models";
-import credentials from "next-auth/providers/credentials";
+import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 
-async function login(credentials) {
+const login = async (credentials) => {
   try {
     connectToDB();
     const user = await User.findOne({ username: credentials.username });
 
-    if (!user) throw new Error("Invalid credentials");
+    if (!user) throw new Error("Wrong credentials!");
 
     const isPasswordCorrect = await bcrypt.compare(
       credentials.password,
       user.password
     );
 
-    if (!isPasswordCorrect) throw new Error("Password Incorrect");
+    if (!isPasswordCorrect) throw new Error("Wrong credentials!");
 
     return user;
-  } catch (error) {
-    console.log(error);
-    throw new Error("Cannot Login: " + error.message);
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to login!");
   }
-}
+};
 
 export const {
   handlers: { POST, GET },
@@ -34,13 +34,12 @@ export const {
   signOut,
 } = NextAuth({
   providers: [
-    credentials({
-      name: "credentials",
+    CredentialsProvider({
       async authorize(credentials) {
         try {
           const user = await login(credentials);
           return user;
-        } catch (error) {
+        } catch (err) {
           return null;
         }
       },
@@ -65,6 +64,7 @@ export const {
     async signIn(params) {
       // params contains user, account, and profile information
       const { user, account, profile } = params;
+      console.log(params);
       if (account?.provider === "github") {
         connectToDB();
         try {
@@ -79,7 +79,8 @@ export const {
             await newUser.save();
           }
         } catch (error) {
-          console.log(error);
+          // console.log(error);
+          console.log("Error Here in callback");
           return false;
         }
       }
