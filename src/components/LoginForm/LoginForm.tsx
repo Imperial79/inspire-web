@@ -14,8 +14,6 @@ const LoginForm = () => {
       router.push("/");
     }
   }, [state?.success, router]);
-
-  console.log("state", state);
   return (
     <form action={formAction}>
       <input

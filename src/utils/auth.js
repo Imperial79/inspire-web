@@ -5,6 +5,7 @@ import { connectToDB } from "./connectToDB";
 import { User } from "./models";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
+import { authConfig } from "./auth.config";
 
 const login = async (credentials) => {
   try {
@@ -33,6 +34,7 @@ export const {
   signIn,
   signOut,
 } = NextAuth({
+  ...authConfig,
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
@@ -64,8 +66,8 @@ export const {
     async signIn(params) {
       // params contains user, account, and profile information
       const { user, account, profile } = params;
-      console.log(params);
-      if (account?.provider === "github") {
+      console.log(user);
+      if (account?.provider === "github" || account?.provider === "google") {
         connectToDB();
         try {
           const userData = await User.findOne({ email: profile?.email });
@@ -87,4 +89,6 @@ export const {
       return true;
     },
   },
+
+  ...authConfig.callbacks,
 });

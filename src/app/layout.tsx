@@ -3,7 +3,8 @@ import { Inconsolata } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
-import AppContextProvider from "@/utils/contextProvider";
+import AuthProvider from "./AuthProvider";
+import { ThemeProvider } from "@/utils/context/ThemeContext";
 
 const inconsolata = Inconsolata({ subsets: ["latin"] });
 
@@ -20,13 +21,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inconsolata.className}>
-        <AppContextProvider>
-          <Navbar />
-          <div className="max-w-6xl mx-auto px-[20px] py-[20px] min-h-screen flex flex-col justify-around">
-            <div className="pt-20 content-center">{children}</div>
-          </div>
-          <Footer />
-        </AppContextProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <Navbar />
+            <div className="max-w-6xl mx-auto px-[20px] py-[20px] min-h-screen flex flex-col justify-around">
+              <div className="pt-20 content-center">{children}</div>
+            </div>
+            <Footer />
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

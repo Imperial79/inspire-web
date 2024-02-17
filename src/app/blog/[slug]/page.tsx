@@ -22,12 +22,12 @@ const SinglePostPage = async ({ params }: { params: any }) => {
   const { slug } = params;
   // console.log("slug: " + slug);
   const postRes = await getPost(slug);
-  const res = await getData(slug); // using API
-  // console.log(res);
+  // console.log(postRes.image);
+  const res = await getData(slug); //Using API
 
   return (
     <div>
-      <div className="flex items-start gap-[60px]">
+      <div className="flex items-center gap-[60px]">
         <div className="relative flex-1 min-h-[600px] w-full">
           <Image
             src={postRes.image}
@@ -36,7 +36,7 @@ const SinglePostPage = async ({ params }: { params: any }) => {
             className="object-contain"
           />
         </div>
-        <div className="flex-1 flex-col">
+        <div className="flex-1 flex-col max-h-[500px] overflow-y-auto">
           <UserData userId={postRes.userId} />
           <h1 className="text-3xl font-bold">{postRes.title}</h1>
           <p className="text-lg text-gray-300">{postRes.description}</p>
@@ -57,7 +57,7 @@ async function UserData({ userId }: { userId: String }) {
         <div className="bg-gray-500 h-12 w-12 rounded-full relative overflow-hidden flex-shrink-0">
           <Image
             src={userRes.image || "/avatar.png"}
-            alt=""
+            alt="user-image"
             fill
             objectFit="cover"
           />

@@ -1,6 +1,7 @@
 import PostCard from "@/components/Post Card/PostCard";
 import { getPosts } from "@/utils/data";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import React from "react";
 
 export const metadata = {
@@ -11,6 +12,7 @@ export const metadata = {
 // Fetch data with an API
 async function getData() {
   const res = await fetch("http://localhost:3000/api/blog");
+  if (!res.ok) return notFound;
   return res.json();
 }
 

@@ -2,15 +2,10 @@ import LoginForm from "@/components/LoginForm/LoginForm";
 import { handleGithubLogin, handleGoogleLogin } from "@/utils/actions";
 import { auth } from "@/utils/auth";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import React from "react";
 
 const LoginPage = async () => {
-  // const session = await auth();
-  // const router = useRouter();
-  // if (session !== null) {
-  //   router.push("/");
-  // }
+  const session = await auth();
 
   return (
     <div className="flex flex-col gap-2 max-w-2xl mx-auto">

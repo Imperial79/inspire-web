@@ -15,7 +15,7 @@ export const addPost = async (formdata) => {
       image,
       description,
       slug: new Date().getMilliseconds().toString(),
-      userId: "659e139a84cee1e443fb25c2",
+      userId: "65a3cfa6ecdb24f39648b480",
     });
 
     await newPost.save();

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Navlink from "./Navlink";
 import Link from "next/link";
 import { handleSignout } from "@/utils/actions";
+import { useRouter } from "next/navigation";
 const links = [
   {
     title: "Home",
@@ -25,6 +26,7 @@ const links = [
 
 const Links = ({ session }: { session: any }) => {
   const [isOpen, setisOpen] = useState(false);
+  const router = useRouter();
 
   return (
     <div>
@@ -39,7 +41,12 @@ const Links = ({ session }: { session: any }) => {
             {session.user?.isAdmin && (
               <Navlink item={{ title: "Admin", path: "/admin" }} />
             )}
-            <form action={handleSignout}>
+            <form
+              action={() => {
+                handleSignout();
+                router.replace("/login");
+              }}
+            >
               <button className="bg-red-200 text-red-800 font-bold px-5 py-1.5 rounded-full">
                 Logout
               </button>

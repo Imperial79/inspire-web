@@ -29,6 +29,18 @@
   .kSocialButton {
     @apply border-2 hover:border-gray-400 border-black rounded-lg p-2 flex gap-2 items-center
   }
+
+  /* .theme {
+    @apply transition-all duration-1000 ease-in-out;
+  } */
+
+  .light {
+    @apply bg-white text-black;
+  }
+
+  .dark {
+    @apply bg-black text-white;
+  }
 }
 
 
@@ -51,10 +63,14 @@ select:-webkit-autofill:focus {
 }
 
 
-:root {
+/* :root {
   --bg: black;
   --text: whitesmoke;
   --btn: #3673fd;
+} */
+
+.theme {
+  transition: 1s all ease;
 }
 
 * {

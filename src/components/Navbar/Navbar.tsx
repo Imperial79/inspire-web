@@ -2,6 +2,7 @@ import React from "react";
 import Links from "./Links";
 import Link from "next/link";
 import { auth } from "@/utils/auth";
+import DarkToggle from "../Dark Mode Toggle/DarkToggle";
 
 const Navbar = async () => {
   const session = await auth();
@@ -10,7 +11,8 @@ const Navbar = async () => {
       <Link href="/" className="font-bold text-xl">
         !nspire
       </Link>
-      <div>
+      <div className="flex items-center">
+        <DarkToggle />
         <Links session={session} />
       </div>
     </div>
